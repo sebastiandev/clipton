@@ -3,8 +3,9 @@ import win32gui
 import win32api
 import contextlib
 import time
-from clipboard import BaseClipboard
+from .clipboard import BaseClipboard
                             
+
 class Clipboard(BaseClipboard):
 
     def __init__(self, handle=None):

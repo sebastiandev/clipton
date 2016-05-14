@@ -48,3 +48,9 @@ class BaseClipboard(object):
         Retrieves the data from the clipboard as html
         """
         raise NotImplementedError()
+
+    def image(self):
+        """
+        Retrieves the data from the clipboard as image bytes
+        """
+        raise NotImplementedError()
