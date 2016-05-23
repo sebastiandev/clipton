@@ -1,5 +1,7 @@
 import platform
 
+__version__ = '1.0.0'
+
 
 def get_clipboard(handle=None):
     system = platform.system().lower()
