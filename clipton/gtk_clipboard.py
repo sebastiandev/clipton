@@ -1,15 +1,20 @@
 from gi.repository import Gtk, Gdk
 from hashlib import sha1
-from .clipboard import BaseClipboard
+from .clipboard import BaseClipboardImplementator
 
 
-class Clipboard(BaseClipboard):
+class GTKClipboard(BaseClipboardImplementator):
 
     CLIPBOARD = Gdk.SELECTION_CLIPBOARD
     PRIMARY = Gdk.SELECTION_PRIMARY
 
+    GTK_TEXT = 'text'
+    GTK_HTML = 'text/html'
+    GTK_RTF = 'text/rtf'
+    GTK_IMAGE = ''
+
     def __init__(self, handle=None):
-        super(Clipboard, self).__init__(handle)
+        super(GTKClipboard, self).__init__(handle)
         self._clipboard = Gtk.Clipboard.get(Clipboard.CLIPBOARD)
         self._primary = Gtk.Clipboard.get(Clipboard.PRIMARY)
         self._clipboard_hash = self._calculate_clipboard_hash()
@@ -67,12 +72,15 @@ class Clipboard(BaseClipboard):
                self._primary.wait_for_text()
 
     def html(self, mode=CLIPBOARD):
-        target = Gdk.Atom.intern('text/html', False)
+        target = Gdk.Atom.intern(GTKClipboard.GTK_HTML, False)
         contents = self._clipboard.wait_for_contents(target) if mode == Clipboard.CLIPBOARD else \
             self._primary.wait_for_contents(target)
 
         return contents.get_data() if contents else ''
 
+    def rtf(self):
+        return ''
+        
     def image(self, mode=CLIPBOARD):
         return self._clipboard.wait_for_image() if mode == Clipboard.CLIPBOARD else \
             self._primary.wait_for_image()
