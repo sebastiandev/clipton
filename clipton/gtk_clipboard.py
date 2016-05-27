@@ -1,9 +1,9 @@
 from gi.repository import Gtk, Gdk
 from hashlib import sha1
-from .clipboard import BaseClipboardImplementator
+from .clipboard import Clipboard
 
 
-class GTKClipboard(BaseClipboardImplementator):
+class GTKClipboard(Clipboard):
 
     CLIPBOARD = Gdk.SELECTION_CLIPBOARD
     PRIMARY = Gdk.SELECTION_PRIMARY

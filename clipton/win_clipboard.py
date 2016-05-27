@@ -3,10 +3,10 @@ import win32gui
 import win32api
 import contextlib
 import time
-from .clipboard import BaseClipboardImplementator
+from .clipboard import Clipboard
                             
 
-class WinClipboard(BaseClipboardImplementator):
+class WinClipboard(Clipboard):
 
     CW_TEXT = win32clipboard.CF_UNICODETEXT
     CW_HTML = 49370
@@ -75,13 +75,13 @@ class WinClipboard(BaseClipboardImplementator):
         return data.rstrip('\x00')
 
     def _get_format(self, format):
-        if format == BaseClipboardImplementator.TEXT:
+        if format == self.TEXT:
             format = WinClipboard.CW_TEXT
-        elif format == BaseClipboardImplementator.HTML:
+        elif format == self.HTML:
             format = WinClipboard.CW_HTML
-        elif format == BaseClipboardImplementator.RTF:
+        elif format == self.RTF:
             format = WinClipboard.CW_RTF
-        elif format == BaseClipboardImplementator.IMAGE:
+        elif format == self.IMAGE:
             format = WinClipboard.CW_IMAGE
 
         return format
@@ -130,7 +130,7 @@ class WinClipboard(BaseClipboardImplementator):
         return {format_name: self.paste(format_num) 
                 for format_num, format_name in self.formats()}
         
-    def copy(self, data, format=BaseClipboardImplementator.TEXT):
+    def copy(self, data, format=Clipboard.TEXT):
         """
         Puts data in the clipboard with the specified format
         
