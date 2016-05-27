@@ -19,7 +19,7 @@ clipboard = clipon.get_clipboard()
 import clipton
 clipboard = clipon.get_clipboard()
 c.copy("hello clipton!")  # default expects unicode text
-c.copy("<html><body><p>texto html</p></body></html>", 49371)  # specifying the data format (html)
+c.copy("<html><body><p>texto html</p></body></html>", c.HTML)  # specifying the data format (html)
 ```
 
 ### Checking the available formats of clipboard's data
@@ -45,7 +45,7 @@ c.text()
 ```python
 import clipton
 clipboard = clipon.get_clipboard()
-c.paste(13)  # unicode
+c.paste(c.TEXT)  # unicode
 >> u"hello clipton!"
 ```
 
